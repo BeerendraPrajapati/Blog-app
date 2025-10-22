@@ -7,10 +7,11 @@ const createTokenAndSaveCookies = async (userId, res) => {
   });
 
   res.cookie("jwt", token, {
-    httpOnly: false,
-    secure: true, // true only in production with HTTPS
-    sameSite: "none", // or "none" if deployed separately
-    
+      httpOnly: true,
+  secure: process.env.NODE_ENV === "production", // ✅ only true in deploy
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  path: "/",
+  maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 
   await User.findByIdAndUpdate(userId, { token });
