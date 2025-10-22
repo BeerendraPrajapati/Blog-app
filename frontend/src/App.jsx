@@ -15,6 +15,8 @@ import { Toaster } from "react-hot-toast";
 import UpdateBlog from "./dashboard/UpdateBlog";
 import Detail from "./pages/Detail";
 import Notfound from "../src/pages/Notfound";
+import { BACKEND_URL } from "./utils";
+
 function App() {
   const location = useLocation();
   const hideNavbarFooter = ["/dashboard", "/login", "/register"].includes(
