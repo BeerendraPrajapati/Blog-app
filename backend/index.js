@@ -17,9 +17,9 @@ const MONGO_URL = process.env.MONGO_URI;
 // ✅ CORS Middleware (Allow Frontend Access)
 app.use(
   cors({
-    origin: ["http://localhost:5173", process.env.FRONTEND_URL], // frontend URL(s)
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: ["https://blog-app-bo95.vercel.app"], // deploy frontend URL
+    credentials: true, // ✅ important for cookies
+    methods: ["GET","POST","PUT","DELETE"],
   })
 );
 

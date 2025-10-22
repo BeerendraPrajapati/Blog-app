@@ -7,7 +7,7 @@ const createTokenAndSaveCookies = async (userId, res) => {
   });
 
   res.cookie("jwt", token, {
-      httpOnly: true,
+    httpOnly: true,
   secure: process.env.NODE_ENV === "production", // ✅ only true in deploy
   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   path: "/",
