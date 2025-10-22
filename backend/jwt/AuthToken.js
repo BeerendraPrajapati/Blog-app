@@ -7,10 +7,10 @@ const createTokenAndSaveCookies = async (userId, res) => {
   });
 
   res.cookie("jwt", token, {
-    httpOnly: true,
+    httpOnly: false,
     secure: true, // true only in production with HTTPS
     sameSite: "none", // or "none" if deployed separately
-    path:"/",
+   
     
   });
 
