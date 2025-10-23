@@ -11,7 +11,7 @@ function Navbar() {
   const [show, setShow] = useState(false);
 
   const { profile, isAuthenticated, setIsAuthenticated } = useAuth();
-  const token = localStorage.getItem("jwt");
+  // const token = localStorage.getItem("jwt");
   console.log(profile?.user);
   const navigateTo = useNavigate();
 
@@ -23,7 +23,7 @@ function Navbar() {
         { withCredentials: true,
             headers: {
       "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`, // ✅ add token
+      // Authorization: `Bearer ${token}`, // ✅ add token
     },
          }
       );
