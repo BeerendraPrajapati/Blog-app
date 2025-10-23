@@ -10,7 +10,7 @@ function CreateBlog() {
 
   const [blogImage, setBlogImage] = useState("");
   const [blogImagePreview, setBlogImagePreview] = useState("");
-
+const token = localStorage.getItem("jwt");
   const changePhotoHandler = (e) => {
     console.log(e);
     const file = e.target.files[0];
@@ -38,6 +38,7 @@ function CreateBlog() {
           withCredentials: true,
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
