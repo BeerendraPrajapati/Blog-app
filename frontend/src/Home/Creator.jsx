@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BACKEND_URL } from "../utils";
 function Creator() {
   const [admin, setAdmin] = useState([]);
+  const token = localStorage.getItem("jwt");
   console.log(admin);
   useEffect(() => {
     const fetchAdmins = async () => {
@@ -10,6 +11,10 @@ function Creator() {
         `${BACKEND_URL}/api/users/admins`,
         {
           withCredentials: true,
+            headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`, // ✅ add token
+    },
         }
       );
       console.log(data.admins);

@@ -39,7 +39,12 @@ export const AuthProvider = ({ children }) => {
       try {
         const { data } = await axios.get(
           `${BACKEND_URL}/api/blogs/all-blogs`,
-          { withCredentials: true }
+          { withCredentials: true,
+              headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`, // ✅ add token
+    },
+           }
         );
         console.log(data);
         setBlogs(data);

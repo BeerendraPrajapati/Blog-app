@@ -11,6 +11,7 @@ function Navbar() {
   const [show, setShow] = useState(false);
 
   const { profile, isAuthenticated, setIsAuthenticated } = useAuth();
+  const token = localStorage.getItem("jwt");
   console.log(profile?.user);
   const navigateTo = useNavigate();
 
@@ -19,7 +20,12 @@ function Navbar() {
     try {
       const { data } = await axios.get(
         `${BACKEND_URL}/api/users/logout`,
-        { withCredentials: true }
+        { withCredentials: true,
+            headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`, // ✅ add token
+    },
+         }
       );
       console.log(data);
       localStorage.removeItem("jwt"); // deleting token in localStorage so that if user logged out it will goes to login page

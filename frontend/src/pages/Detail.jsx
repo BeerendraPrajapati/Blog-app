@@ -7,6 +7,7 @@ import { BACKEND_URL } from "../utils";
 function Detail() {
   const { id } = useParams();
   const [blogs, setblogs] = useState({});
+  const token = localStorage.getItem("jwt");
   console.log(blogs);
   useEffect(() => {
     const fetchblogs = async () => {
@@ -18,6 +19,8 @@ function Detail() {
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+
             },
           }
         );

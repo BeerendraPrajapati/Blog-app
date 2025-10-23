@@ -12,6 +12,7 @@ function UpdateBlog() {
   const [category, setCategory] = useState("");
   const [about, setAbout] = useState("");
 
+const token = localStorage.getItem("jwt");
   const [blogImage, setBlogImage] = useState("");
   const [blogImagePreview, setBlogImagePreview] = useState("");
 
@@ -36,6 +37,7 @@ function UpdateBlog() {
             withCredentials: true,
             headers: {
               "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -68,6 +70,7 @@ function UpdateBlog() {
           withCredentials: true,
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

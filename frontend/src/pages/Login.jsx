@@ -12,6 +12,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const token = localStorage.getItem("jwt");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,6 +25,8 @@ function Login() {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
+             Authorization: `Bearer ${token}`,
+
           },
         }
       );

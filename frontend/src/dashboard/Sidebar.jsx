@@ -7,11 +7,13 @@ import { BiSolidLeftArrowAlt, BiUser, BiHomeAlt, BiLogOut } from "react-icons/bi
 import { FaBlog } from "react-icons/fa";
 import { MdCreate } from "react-icons/md";
 import toast from "react-hot-toast";
+import { BACKEND_URL } from "../utils";
 
 function Sidebar({ setComponent }) {
   const { profile, setIsAuthenticated } = useAuth();
   const navigateTo = useNavigate();
   const [show, setShow] = useState(false);
+  const token = localStorage.getItem("jwt");
 
   const handleComponents = (value) => {
     setComponent(value);
@@ -24,8 +26,12 @@ function Sidebar({ setComponent }) {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.get("http://localhost:4001/api/users/logout", {
+      const { data } = await axios.get(`${BACKEND_URL}/api/users/logout`, {
         withCredentials: true,
+         headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`, // ✅ add token
+    },
       });
       toast.success(data.message);
       localStorage.removeItem("jwt");

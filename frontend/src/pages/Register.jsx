@@ -18,6 +18,7 @@ function Register() {
   const [education, setEducation] = useState("");
   const [photo, setPhoto] = useState("");
   const [photoPreview, setPhotoPreview] = useState("");
+  const token = localStorage.getItem("jwt");
 
   const changePhotoHandler = (e) => {
     console.log(e);
@@ -48,6 +49,7 @@ function Register() {
           withCredentials: true,
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
