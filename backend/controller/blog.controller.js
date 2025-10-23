@@ -3,7 +3,11 @@ import { Blog } from "../models/blog.model.js";
 import { v2 as cloudinary } from "cloudinary";
 export const createBlog = async (req, res) => {
   try {
+
      console.log("User Data:", req.user);
+     console.log("req.files:", req.files);
+    console.log("req.body:", req.body);
+  
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).json({ message: "Blog Image is required" });
     }
