@@ -23,11 +23,7 @@ app.use(
   })
 );
 
-// ✅ Allow preflight requests
-app.options("*", cors({
-  origin: ["http://localhost:5173", process.env.FRONTEND_URL],
-  credentials: true,
-}));
+
 
 // ✅ Other Middlewares
 app.use(express.json());
