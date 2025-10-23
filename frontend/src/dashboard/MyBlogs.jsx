@@ -8,12 +8,20 @@ function MyBlogs() {
   const navigateTo = useNavigate();
   const [myBlogs, setMyBlogs] = useState([]);
 
+  const token = localStorage.getItem("jwt");
+
   useEffect(() => {
     const fetchMyBlogs = async () => {
       try {
         const { data } = await axios.get(
           `${BACKEND_URL}/api/blogs/my-blog`,
-          { withCredentials: true }
+          { 
+            withCredentials: true,
+             headers: {
+            Authorization: `Bearer ${token}`, // token in header
+          },
+
+           }
         );
         setMyBlogs(data);
       } catch (error) {
@@ -27,7 +35,11 @@ function MyBlogs() {
     try {
       const res = await axios.delete(
         `${BACKEND_URL}/api/blogs/delete/${id}`,
-        { withCredentials: true }
+        { withCredentials: true,
+           headers: {
+          Authorization: `Bearer ${token}`, // token in header
+        },
+         }
       );
       toast.success(res.data.message || "Blog deleted successfully");
       setMyBlogs((value) => value.filter((blog) => blog._id !== id));
