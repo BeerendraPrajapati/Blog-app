@@ -5,56 +5,50 @@ import { BACKEND_URL } from "../utils";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [blogs, setBlogs] = useState();
-  const [profile, setProfile] = useState();
+  const [blogs, setBlogs] = useState([]);
+  const [profile, setProfile] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem("jwt"); // ✅ moved here
+
     const fetchProfile = async () => {
       try {
-        // token should be let type variable because its value will change in every login. (in backend also)
-        let token = localStorage.getItem("jwt"); // Retrieve the token directly from the localStorage (Go to login.jsx)
-        console.log(token);
         if (token) {
-          const { data } = await axios.get(
-            `${BACKEND_URL}/api/users/my-profile`,
-            {
-              withCredentials: true,
-              headers: {
-                "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          console.log(data.user);
+          const { data } = await axios.get(`${BACKEND_URL}/api/users/my-profile`, {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          console.log("Profile:", data.user);
           setProfile(data.user);
           setIsAuthenticated(true);
         }
       } catch (error) {
-        console.log(error);
+        console.log("Profile fetch error:", error);
       }
     };
 
     const fetchBlogs = async () => {
       try {
-        const { data } = await axios.get(
-          `${BACKEND_URL}/api/blogs/all-blogs`,
-          { withCredentials: true,
-              headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`, // ✅ add token
-    },
-           }
-        );
-        console.log(data);
-        setBlogs(data);
+        const { data } = await axios.get(`${BACKEND_URL}/api/blogs/all-blogs`, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json", // ✅ fixed
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("Blogs fetched:", data.blogs);
+        setBlogs(data.blogs); // ✅ fixed here
       } catch (error) {
-        console.log(error);
+        console.log("Blogs fetch error:", error);
       }
     };
 
-    fetchBlogs();
     fetchProfile();
+    fetchBlogs();
   }, []);
 
   return (
