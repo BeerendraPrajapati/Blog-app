@@ -1,4 +1,5 @@
 import express from "express";
+import fileUpload from "express-fileupload";
 import {
   createBlog,
   deleteBlog,

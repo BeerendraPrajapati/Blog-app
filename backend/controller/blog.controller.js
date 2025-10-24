@@ -93,13 +93,51 @@ export const getMyBlogs = async (req, res) => {
 };
 
 export const updateBlog = async (req, res) => {
-  const { id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ message: "Invalid Blog id" });
+  try {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid Blog id" });
+    }
+
+    const blog = await Blog.findById(id);
+    if (!blog) return res.status(404).json({ message: "Blog not found" });
+
+    const { title, category, about } = req.body;
+
+    // Update text fields
+    if (title) blog.title = title;
+    if (category) blog.category = category;
+    if (about) blog.about = about;
+
+    // Update image if new file is uploaded
+    if (req.files && req.files.blogImage) {
+      const { blogImage } = req.files;
+      const allowedFormats = ["image/jpeg", "image/png", "image/webp"];
+      if (!allowedFormats.includes(blogImage.mimetype)) {
+        return res.status(400).json({
+          message: "Invalid photo format. Only jpg, png, webp allowed",
+        });
+      }
+
+      // Upload new image to cloudinary
+      const cloudinaryResponse = await cloudinary.uploader.upload(
+        blogImage.tempFilePath
+      );
+      if (!cloudinaryResponse || cloudinaryResponse.error) {
+        return res.status(500).json({ message: "Failed to upload image" });
+      }
+
+      blog.blogImage = {
+        public_id: cloudinaryResponse.public_id,
+        url: cloudinaryResponse.url,
+      };
+    }
+
+    await blog.save();
+    res.status(200).json({ message: "Blog updated successfully", blog });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-  const updatedBlog = await Blog.findByIdAndUpdate(id, req.body, { new: true });
-  if (!updatedBlog) {
-    return res.status(404).json({ message: "Blog not found" });
-  }
-  res.status(200).json(updatedBlog);
 };
+
