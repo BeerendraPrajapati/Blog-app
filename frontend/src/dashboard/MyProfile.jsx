@@ -14,7 +14,7 @@ function MyProfile() {
               alt="avatar"
               className="w-full h-32 object-cover"
             />
-            <div className="absolute inset-x-0 bottom-0 transform translate-y-1/2">
+            <div className="absolute inset-x-0 bottom-0 transform translate-y-1/2 z-[1]">
               <img
                 src={profile?.user?.photo?.url}
                 alt="avatar"
