@@ -55,7 +55,7 @@ function Sidebar({ setComponent }) {
 
       {/* Sidebar */}
       <div
-        className={`group w-16 hover:w-56 sm:w-16 hover:sm:w-56 h-full shadow-lg fixed top-0 left-0 bg-gray-50 transition-all duration-300 overflow-hidden ${
+        className={`group w-16 hover:w-56 sm:w-16 hover:sm:w-56 h-full shadow-lg fixed top-0 left-0 bg-gray-50 transition-all duration-300 overflow-hidden  z-[999]${
           show ? "translate-x-0" : "-translate-x-full sm:translate-x-0"
         }`}
       >

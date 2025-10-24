@@ -5,7 +5,7 @@ function MyProfile() {
   const { profile } = useAuth();
   console.log(profile?.user);
   return (
-    <div>
+    <div className="relative z-0">
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full">
           <div className="relative">
