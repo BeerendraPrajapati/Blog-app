@@ -130,14 +130,14 @@ const Footer = () => {
           <p>&copy; 2025 DhiWise PVT. LTD. All rights reserved</p>
         </div>
         <div className="mt-4 md:mt-0 flex space-x-4">
-          <a href="#">
+          <a href="https://github.com/BeerendraPrajapati">
             <FaGithub className="h-6" />
           </a>
-          <a href="https://www.linkedin.com/in/beer721/">
+          <a href="#">
             <BsYoutube className="h-6" />
           </a>
 
-          <a href="https://github.com/BeerendraPrajapati">
+          <a href="https://www.linkedin.com/in/beer721/">
             <FaLinkedin className="h-6" />
           </a>
         </div>
