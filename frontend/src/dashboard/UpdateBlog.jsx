@@ -13,8 +13,10 @@ function UpdateBlog() {
   const [about, setAbout] = useState("");
 
 const token = localStorage.getItem("jwt");
-  const [blogImage, setBlogImage] = useState("");
-  const [blogImagePreview, setBlogImagePreview] = useState("");
+const [blogImageFile, setBlogImageFile] = useState(null); // new file
+const [blogImagePreview, setBlogImagePreview] = useState(""); // preview
+const [existingImage, setExistingImage] = useState(""); // existing URL
+
 
   const changePhotoHandler = (e) => {
     console.log(e);
@@ -23,7 +25,7 @@ const token = localStorage.getItem("jwt");
     reader.readAsDataURL(file);
     reader.onload = () => {
       setBlogImagePreview(reader.result);
-      setBlogImage(file);
+     setBlogImageFile(file);
     };
   };
 
@@ -45,7 +47,8 @@ const token = localStorage.getItem("jwt");
         setTitle(data?.title);
         setCategory(data?.category);
         setAbout(data?.about);
-        setBlogImage(data?.blogImage?.url);
+        setExistingImage(data?.blogImage?.url);
+
       } catch (error) {
         console.log(error);
         toast.error("Please fill the required fields");
@@ -61,7 +64,10 @@ const token = localStorage.getItem("jwt");
     formData.append("category", category);
     formData.append("about", about);
 
-    formData.append("blogImage", blogImage);
+    if (blogImageFile) {
+  formData.append("blogImage", blogImageFile);
+}
+
     try {
       const { data } = await axios.put(
         `${BACKEND_URL}/api/blogs/update/${id}`,
@@ -116,13 +122,7 @@ const token = localStorage.getItem("jwt");
             <div className="mb-4">
               <label className="block mb-2 font-semibold">BLOG IMAGE</label>
               <img
-                src={
-                  blogImagePreview
-                    ? blogImagePreview
-                    : blogImage
-                    ? blogImage
-                    : "/imgPL.webp"
-                }
+                 src={blogImagePreview ? blogImagePreview : existingImage ? existingImage : "/imgPL.webp"}
                 alt="Blog Main"
                 className="w-full h-48 object-cover mb-4 rounded-md"
               />
