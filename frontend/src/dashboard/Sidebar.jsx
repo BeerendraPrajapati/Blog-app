@@ -55,13 +55,13 @@ function Sidebar({ setComponent }) {
 
       {/* Sidebar */}
       <div
-        className={`group w-16 hover:w-56 sm:w-16 hover:sm:w-56 h-full shadow-lg fixed top-0 left-0 bg-gray-50 transition-all duration-300 overflow-hidden  z-[999]${
+        className={`group w-16 hover:w-56 sm:w-16 hover:sm:w-56 h-full shadow-lg fixed top-0 left-0 bg-gray-50 transition-all duration-300 overflow-hidden  z-[999] sm:z-[999]${
           show ? "translate-x-0" : "-translate-x-full sm:translate-x-0"
         }`}
       >
         {/* Close Button (Mobile) */}
         <div
-          className="sm:hidden absolute top-4 right-4 text-2xl cursor-pointer"
+          className="sm:hidden absolute top-4 right-4 text-2xl cursor-pointer z-[1000]"
           onClick={() => setShow(!show)}
         >
           <BiSolidLeftArrowAlt />
