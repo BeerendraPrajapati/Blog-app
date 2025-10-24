@@ -133,11 +133,11 @@ const Footer = () => {
           <a href="#">
             <FaGithub className="h-6" />
           </a>
-          <a href="#">
+          <a href="https://www.linkedin.com/in/beer721/">
             <BsYoutube className="h-6" />
           </a>
 
-          <a href="#">
+          <a href="https://github.com/BeerendraPrajapati">
             <FaLinkedin className="h-6" />
           </a>
         </div>
